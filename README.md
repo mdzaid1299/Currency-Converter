@@ -87,65 +87,6 @@ The client provides an interactive command-line interface with the following com
    exit
    ```
 
-## Customizing Exchange Rates
-
-The service uses exchange rates defined in `exchange_rates.json`. You can:
-
-1. Update this file manually with new rates
-2. Replace it with a file from an external source
-3. Modify the server to fetch rates from an external API
-
-The format of the exchange rates file should be:
-```json
-{
-  "base": "USD",
-  "last_updated": "2025-03-22T12:00:00Z",
-  "rates": {
-    "USD": 1.0,
-    "EUR": 0.92,
-    "GBP": 0.78,
-    ...
-  }
-}
-```
-
-## Advanced Usage
-
-### Running the server with custom port:
-
-```
-python grpc_server.py --port 50052
-```
-
-### Connecting the client to a remote server:
-
-```
-python grpc_client.py --host remote-server.example.com --port 50051
-```
-
-### Using the client programmatically:
-
-```python
-from grpc_client import CurrencyClient
-
-# Create a client
-client = CurrencyClient(host='localhost', port=50051)
-
-# Convert currency
-result = client.convert('USD', 'EUR', 100)
-print(f"100 USD = {result.converted_amount} EUR")
-
-# Get exchange rate
-rate = client.get_exchange_rate('USD', 'GBP')
-print(f"1 USD = {rate} GBP")
-
-# List available currencies
-currencies = client.get_available_currencies()
-print(f"Available currencies: {', '.join(currencies)}")
-
-# Close the client
-client.close()
-```
 
 ## Next Steps for Enhancement
 
@@ -153,7 +94,3 @@ client.close()
 - Implement caching for better performance
 - Add historical exchange rate support
 - Create a REST API gateway for non-gRPC clients
-
-## Author
-
-[Zaid]
